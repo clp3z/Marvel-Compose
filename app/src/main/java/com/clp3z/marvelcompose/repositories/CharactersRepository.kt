@@ -18,4 +18,8 @@ object CharactersRepository {
         return result.dataResponse.characters.map { it.toCharacter() }
     }
 
+    suspend fun getCharacter(id: Int): Character {
+        val result = MarvelServerClient.charactersService.getCharacter(id)
+        return result.dataResponse.characters.first().toCharacter()
+    }
 }

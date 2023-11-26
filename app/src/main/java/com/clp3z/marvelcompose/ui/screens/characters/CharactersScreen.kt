@@ -1,6 +1,7 @@
 package com.clp3z.marvelcompose.ui.screens.characters
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
@@ -27,37 +28,43 @@ import com.clp3z.marvelcompose.repositories.CharactersRepository
 import com.clp3z.marvelcompose.ui.models.Character
 
 @Composable
-fun CharactersScreen() {
+fun CharactersScreen(onClick: (Character) -> Unit) {
     var characters by rememberSaveable { mutableStateOf(emptyList<Character>()) }
 
     LaunchedEffect(Unit) {
         characters = CharactersRepository.getCharacters()
     }
 
-    CharactersList(characters)
+    CharactersList(
+        characters = characters,
+        onClick = onClick
+    )
 }
 
 @Composable
-fun CharactersList(characters: List<Character>) {
+fun CharactersList(characters: List<Character>, onClick: (Character) -> Unit) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(180.dp),
         contentPadding = PaddingValues(8.dp)
     ) {
         items(characters) {
-            CharacterItem(it)
+            CharacterItem(
+                character = it,
+                modifier = Modifier.clickable { onClick(it) }
+            )
         }
     }
 }
 
 @Composable
-fun CharacterItem(character: Character) {
-    Column(modifier = Modifier.padding(8.dp)) {
+fun CharacterItem(character: Character, modifier: Modifier = Modifier) {
+    Column(modifier = modifier.padding(8.dp)) {
         Card {
             AsyncImage(
                 model = character.thumbnail,
                 contentDescription = character.description,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxSize()
                     .aspectRatio(1f)
                     .background(Color.LightGray)
@@ -67,7 +74,7 @@ fun CharacterItem(character: Character) {
             text = character.name,
             style = MaterialTheme.typography.h6,
             maxLines = 2,
-            modifier = Modifier.padding(0.dp, 4.dp)
+            modifier = modifier.padding(0.dp, 4.dp)
         )
     }
 }
