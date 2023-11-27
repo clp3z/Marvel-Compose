@@ -1,6 +1,7 @@
 package com.clp3z.marvelcompose.network.models
 
 import com.clp3z.marvelcompose.ui.models.Character
+import com.clp3z.marvelcompose.ui.models.Reference
 import com.google.gson.annotations.SerializedName
 
 data class CharacterResponse(
@@ -21,5 +22,9 @@ fun CharacterResponse.toCharacter() = Character(
     id = id,
     name = name,
     description = description,
-    thumbnail = thumbnailResponse.asString()
+    thumbnail = thumbnailResponse.asString(),
+    comics = comicsResponse.comics.map { Reference(it.name, it.resourceURI) },
+    events = eventsResponse.events.map { Reference(it.name, it.resourceURI) },
+    stories = storiesResponse.stories.map { Reference(it.name, it.resourceURI) },
+    series = seriesResponse.series.map { Reference(it.name, it.resourceURI) }
 )

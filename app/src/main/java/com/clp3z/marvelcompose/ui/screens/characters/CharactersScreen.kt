@@ -45,7 +45,8 @@ fun CharactersScreen(onClick: (Character) -> Unit) {
 fun CharactersList(characters: List<Character>, onClick: (Character) -> Unit) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(180.dp),
-        contentPadding = PaddingValues(8.dp)
+        contentPadding = PaddingValues(8.dp),
+        modifier = Modifier.fillMaxSize()
     ) {
         items(characters) {
             CharacterItem(

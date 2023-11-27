@@ -1,5 +1,7 @@
 package com.clp3z.marvelcompose.ui.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
@@ -17,7 +19,9 @@ fun Navigation() {
 
     NavHost(
         navController = navController,
-        startDestination = NavigationItem.Characters.route
+        startDestination = NavigationItem.Characters.route,
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None }
     ) {
         charactersScreenNavigation(navController)
     }

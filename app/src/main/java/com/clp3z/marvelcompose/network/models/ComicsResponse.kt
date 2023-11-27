@@ -6,5 +6,5 @@ data class ComicsResponse(
     val available: Int,
     val returned: Int,
     val collectionURI: String,
-    @SerializedName("items") val comicResponses: List<ComicResponse>
+    @SerializedName("items") val comics: List<ComicResponse>
 )
