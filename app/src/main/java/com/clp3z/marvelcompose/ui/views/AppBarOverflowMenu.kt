@@ -25,6 +25,8 @@ fun AppBarOverflowMenu(
     items: List<MenuItemAction>,
     contentDescription: String? = null
 ) {
+    if (items.isEmpty()) return
+
     var showDropdownMenu by remember { mutableStateOf(false) }
 
     IconButton(onClick = { showDropdownMenu = !showDropdownMenu }) {
