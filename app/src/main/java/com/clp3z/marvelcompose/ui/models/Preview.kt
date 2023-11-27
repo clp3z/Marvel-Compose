@@ -10,3 +10,5 @@ val characterPreview = Character(
     stories = listOf(Reference(name = "Story 1", url = ""), Reference(name = "Story 2", url = "")),
     series = listOf(Reference(name = "Series 1", url = ""), Reference(name = "Series 2", url = ""))
 )
+
+val characters = listOf(characterPreview, characterPreview, characterPreview, characterPreview)

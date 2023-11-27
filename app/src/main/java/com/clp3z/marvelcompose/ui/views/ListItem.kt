@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CustomListItem(name: String, icon: ImageVector, modifier: Modifier = Modifier) {
+fun ListItem(name: String, icon: ImageVector, modifier: Modifier = Modifier) {
     Box(modifier = modifier) {
         Row {
             Icon(imageVector = icon, contentDescription = "$name icon")
@@ -32,5 +32,5 @@ fun CustomListItem(name: String, icon: ImageVector, modifier: Modifier = Modifie
 @Preview(widthDp = 400, heightDp = 400)
 @Composable
 fun CustomListItemPreview() {
-    CustomListItem(name = "Event", icon = Icons.Filled.Event)
+    ListItem(name = "Event", icon = Icons.Filled.Event)
 }

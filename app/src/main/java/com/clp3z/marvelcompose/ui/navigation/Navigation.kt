@@ -40,7 +40,10 @@ private fun NavGraphBuilder.charactersScreenNavigation(
 
     composable(NavigationItem.CharacterDetail) {
         val id = it.findArgument<Int>(NavigationArgument.Id)
-        CharacterDetailScreen(id)
+        CharacterDetailScreen(
+            id = id,
+            onUpClick = { navController.popBackStack() }
+        )
     }
 }
 
