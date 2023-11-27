@@ -7,15 +7,11 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.unit.dp
-import com.clp3z.marvelcompose.ui.models.Character
 import com.clp3z.marvelcompose.ui.models.Reference
 import com.clp3z.marvelcompose.ui.views.ListItem
-import com.clp3z.marvelcompose.ui.views.MenuItemAction
 
 fun LazyListScope.section(
     name: String,
@@ -40,11 +36,4 @@ fun LazyListScope.section(
     item {
         Spacer(modifier = Modifier.height(16.dp))
     }
-}
-
-fun getOverflowMenuItems(character: Character, uriHandler: UriHandler) = character.urls.map {
-    MenuItemAction(
-        name = it.type,
-        onMenuItemClicked = { uriHandler.openUri(it.url) }
-    )
 }
