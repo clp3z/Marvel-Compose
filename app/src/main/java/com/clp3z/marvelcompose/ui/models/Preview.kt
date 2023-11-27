@@ -8,7 +8,8 @@ val characterPreview = Character(
     comics = listOf(Reference(name = "Comic 1", url = ""), Reference(name = "Comic 2", url = "")),
     events = listOf(Reference(name = "Event 1", url = ""), Reference(name = "Event 2", url = "")),
     stories = listOf(Reference(name = "Story 1", url = ""), Reference(name = "Story 2", url = "")),
-    series = listOf(Reference(name = "Series 1", url = ""), Reference(name = "Series 2", url = ""))
+    series = listOf(Reference(name = "Series 1", url = ""), Reference(name = "Series 2", url = "")),
+    urls = listOf(Url(type = "detail", url = ""), Url(type = "other", url = ""))
 )
 
 val characters = listOf(characterPreview, characterPreview, characterPreview, characterPreview)

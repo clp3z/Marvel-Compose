@@ -12,6 +12,9 @@ fun AppBarAction(
     contentDescription: String? = null
 ) {
     IconButton(onClick = onClick) {
-        Icon(imageVector = imageVector, contentDescription = contentDescription)
+        Icon(
+            imageVector = imageVector,
+            contentDescription = contentDescription
+        )
     }
 }
