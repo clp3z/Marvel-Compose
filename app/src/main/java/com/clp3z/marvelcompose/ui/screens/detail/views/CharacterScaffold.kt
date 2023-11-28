@@ -81,7 +81,7 @@ fun CharacterScaffold(
 
 @Preview(widthDp = 400, heightDp = 800)
 @Composable
-fun CharacterScaffoldPreview() {
+private fun CharacterScaffoldPreview() {
     CharacterScaffold(
         character = characterPreview,
         onUpClick = {},

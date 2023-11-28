@@ -1,7 +1,5 @@
 package com.clp3z.marvelcompose.ui.navigation
 
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
@@ -10,6 +8,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navigation
 import com.clp3z.marvelcompose.ui.screens.characters.CharactersScreen
 import com.clp3z.marvelcompose.ui.screens.detail.CharacterDetailScreen
 
@@ -19,31 +18,36 @@ fun Navigation() {
 
     NavHost(
         navController = navController,
-        startDestination = NavigationItem.Characters.route,
-        enterTransition = { EnterTransition.None },
-        exitTransition = { ExitTransition.None }
+        startDestination = Feature.CHARACTERS.route
     ) {
         charactersScreenNavigation(navController)
     }
 }
 
-private fun NavGraphBuilder.charactersScreenNavigation(
-    navController: NavController
-) {
-    composable(NavigationItem.Characters) {
-        CharactersScreen(
-            onClick = { character ->
-                navController.navigate(NavigationItem.CharacterDetail.createRoute(character.id))
-            }
-        )
-    }
+private fun NavGraphBuilder.charactersScreenNavigation(navController: NavController) {
 
-    composable(NavigationItem.CharacterDetail) {
-        val id = it.findArgument<Int>(NavigationArgument.Id)
-        CharacterDetailScreen(
-            id = id,
-            onUpClick = { navController.popBackStack() }
-        )
+    navigation(
+        startDestination = NavigationItem.ContentMain(Feature.CHARACTERS).route,
+        route = Feature.CHARACTERS.route
+    ) {
+
+        composable(NavigationItem.ContentMain(Feature.CHARACTERS)) {
+            CharactersScreen(
+                onClick = { character ->
+                    navController.navigate(
+                        NavigationItem.ContentDetail(Feature.CHARACTERS).createRoute(character.id)
+                    )
+                }
+            )
+        }
+
+        composable(NavigationItem.ContentDetail(Feature.CHARACTERS)) {
+            val id = it.findArgument<Int>(NavigationArgument.Id)
+            CharacterDetailScreen(
+                id = id,
+                onUpClick = { navController.popBackStack() }
+            )
+        }
     }
 }
 
