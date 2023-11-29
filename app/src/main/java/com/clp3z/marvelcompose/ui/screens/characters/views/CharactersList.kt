@@ -9,7 +9,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.clp3z.marvelcompose.ui.models.Character
+import com.clp3z.marvelcompose.repositories.models.Character
 
 @Composable
 fun CharactersList(

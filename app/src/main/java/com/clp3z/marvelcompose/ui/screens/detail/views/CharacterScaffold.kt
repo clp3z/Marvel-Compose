@@ -22,7 +22,7 @@ import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.clp3z.marvelcompose.R
-import com.clp3z.marvelcompose.ui.models.Character
+import com.clp3z.marvelcompose.repositories.models.Character
 import com.clp3z.marvelcompose.ui.models.characterPreview
 import com.clp3z.marvelcompose.ui.views.AppBarAction
 import com.clp3z.marvelcompose.ui.views.AppBarOverflowMenu

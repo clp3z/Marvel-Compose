@@ -7,7 +7,7 @@ import androidx.compose.material.icons.filled.Collections
 import androidx.compose.material.icons.filled.Event
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.clp3z.marvelcompose.ui.models.Character
+import com.clp3z.marvelcompose.repositories.models.Character
 
 @Composable
 fun CharacterSections(character: Character, modifier: Modifier = Modifier) {

@@ -2,7 +2,7 @@ package com.clp3z.marvelcompose.ui.screens.detail.views
 
 import android.content.Context
 import androidx.core.app.ShareCompat
-import com.clp3z.marvelcompose.ui.models.Character
+import com.clp3z.marvelcompose.repositories.models.Character
 
 fun shareCharacter(context: Context, character: Character) {
     ShareCompat.IntentBuilder(context)

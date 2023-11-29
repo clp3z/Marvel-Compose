@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.clp3z.marvelcompose.ui.models.Character
+import com.clp3z.marvelcompose.repositories.models.Character
 
 @Composable
 fun CharacterItem(character: Character, modifier: Modifier = Modifier) {

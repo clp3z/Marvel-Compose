@@ -4,5 +4,5 @@ data class ReferenceListResponse(
     val available: Int,
     val returned: Int,
     val collectionURI: String,
-    val items: List<ReferenceResponse>
+    val items: List<ReferenceResponse>?
 )

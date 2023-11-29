@@ -2,7 +2,7 @@ package com.clp3z.marvelcompose.repositories
 
 import com.clp3z.marvelcompose.network.client.MarvelServerClient
 import com.clp3z.marvelcompose.network.models.toCharacter
-import com.clp3z.marvelcompose.ui.models.Character
+import com.clp3z.marvelcompose.repositories.models.Character
 
 object CharactersRepository {
 

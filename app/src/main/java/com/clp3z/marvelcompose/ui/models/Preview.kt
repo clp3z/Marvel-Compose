@@ -1,5 +1,9 @@
 package com.clp3z.marvelcompose.ui.models
 
+import com.clp3z.marvelcompose.repositories.models.Character
+import com.clp3z.marvelcompose.repositories.models.Reference
+import com.clp3z.marvelcompose.repositories.models.Url
+
 val characterPreview = Character(
     id = 1011334,
     name = "3-D Man",

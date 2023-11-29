@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.clp3z.marvelcompose.MarvelApplication
 import com.clp3z.marvelcompose.R
 import com.clp3z.marvelcompose.repositories.CharactersRepository
-import com.clp3z.marvelcompose.ui.models.Character
+import com.clp3z.marvelcompose.repositories.models.Character
 import com.clp3z.marvelcompose.ui.models.characters
 import com.clp3z.marvelcompose.ui.screens.characters.views.CharactersList
 
