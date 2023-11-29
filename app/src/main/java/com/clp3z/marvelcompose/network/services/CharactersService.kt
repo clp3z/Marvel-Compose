@@ -1,4 +1,4 @@
-package com.clp3z.marvelcompose.network.client
+package com.clp3z.marvelcompose.network.services
 
 import com.clp3z.marvelcompose.network.models.CharacterResponse
 import com.clp3z.marvelcompose.network.models.ServerResponse

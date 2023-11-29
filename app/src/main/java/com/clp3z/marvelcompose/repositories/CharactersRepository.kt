@@ -15,11 +15,11 @@ object CharactersRepository {
             limit = NUMBER_OF_CHARACTERS
         )
 
-        return result.dataResponse.characters.map { it.toCharacter() }
+        return result.dataResponse.results.map { it.toCharacter() }
     }
 
     suspend fun getCharacter(id: Int): Character {
         val result = MarvelServerClient.charactersService.getCharacter(id)
-        return result.dataResponse.characters.first().toCharacter()
+        return result.dataResponse.results.first().toCharacter()
     }
 }

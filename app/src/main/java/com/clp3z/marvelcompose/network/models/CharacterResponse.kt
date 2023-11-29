@@ -13,10 +13,10 @@ data class CharacterResponse(
     val resourceURI: String,
     @SerializedName("urls") val urlResponses: List<UrlResponse>,
     @SerializedName("thumbnail") val thumbnailResponse: ThumbnailResponse,
-    @SerializedName("comics") val comicsResponse: ComicsResponse,
-    @SerializedName("stories") val storiesResponse: StoriesResponse,
-    @SerializedName("events") val eventsResponse: EventsResponse,
-    @SerializedName("series") val seriesResponse: SeriesResponse
+    @SerializedName("comics") val comicsResponse: ReferenceListResponse,
+    @SerializedName("stories") val storiesResponse: ReferenceListResponse,
+    @SerializedName("events") val eventsResponse: ReferenceListResponse,
+    @SerializedName("series") val seriesResponse: ReferenceListResponse
 )
 
 fun CharacterResponse.toCharacter() = Character(
@@ -24,9 +24,9 @@ fun CharacterResponse.toCharacter() = Character(
     name = name,
     description = description,
     thumbnail = thumbnailResponse.asString(),
-    comics = comicsResponse.comics.map { Reference(it.name, it.resourceURI) },
-    events = eventsResponse.events.map { Reference(it.name, it.resourceURI) },
-    stories = storiesResponse.stories.map { Reference(it.name, it.resourceURI) },
-    series = seriesResponse.series.map { Reference(it.name, it.resourceURI) },
+    comics = comicsResponse.items.map { Reference(it.name, it.resourceURI) },
+    events = eventsResponse.items.map { Reference(it.name, it.resourceURI) },
+    stories = storiesResponse.items.map { Reference(it.name, it.resourceURI) },
+    series = seriesResponse.items.map { Reference(it.name, it.resourceURI) },
     urls = urlResponses.map { Url(it.type, it.url) }
 )
