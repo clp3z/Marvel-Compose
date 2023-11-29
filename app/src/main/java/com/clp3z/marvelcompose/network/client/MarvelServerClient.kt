@@ -2,6 +2,7 @@ package com.clp3z.marvelcompose.network.client
 
 import com.clp3z.marvelcompose.network.services.CharactersService
 import com.clp3z.marvelcompose.network.services.ComicsService
+import com.clp3z.marvelcompose.network.services.EventsService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -28,4 +29,5 @@ object MarvelServerClient {
 
     val charactersService: CharactersService = retrofitAdapter.create(CharactersService::class.java)
     val comicsService: ComicsService = retrofitAdapter.create(ComicsService::class.java)
+    val eventsService: EventsService = retrofitAdapter.create(EventsService::class.java)
 }
