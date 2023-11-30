@@ -11,7 +11,7 @@ object ComicsRepository : Repository<Comic>() {
     private const val PAGINATION_OFFSET = 0
     private const val NUMBER_OF_CHARACTERS = 100
 
-    suspend fun getComics(format: Format): List<Comic> = super.getItems {
+    suspend fun getComics(format: Format = Format.COMIC): List<Comic> = super.getItems {
         MarvelServerClient.comicsService
             .getComics(
                 offset = PAGINATION_OFFSET,

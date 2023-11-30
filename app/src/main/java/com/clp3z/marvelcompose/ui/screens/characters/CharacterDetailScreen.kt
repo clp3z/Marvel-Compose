@@ -1,20 +1,17 @@
-package com.clp3z.marvelcompose.ui.screens.detail
+package com.clp3z.marvelcompose.ui.screens.characters
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.clp3z.marvelcompose.MarvelApplication
 import com.clp3z.marvelcompose.repositories.CharactersRepository
 import com.clp3z.marvelcompose.repositories.models.Character
 import com.clp3z.marvelcompose.ui.models.characterPreview
-import com.clp3z.marvelcompose.ui.screens.detail.views.CharacterScaffold
-import com.clp3z.marvelcompose.ui.screens.detail.views.CharacterSections
+import com.clp3z.marvelcompose.ui.screens.common.MarvelDetailScreen
 
 @Composable
 fun CharacterDetailScreen(id: Int, onUpClick: () -> Unit) {
@@ -25,20 +22,7 @@ fun CharacterDetailScreen(id: Int, onUpClick: () -> Unit) {
     }
 
     character?.let {
-        ScreenLayout(it, onUpClick)
-    }
-}
-
-@Composable
-private fun ScreenLayout(character: Character, onUpClick: () -> Unit) {
-    CharacterScaffold(
-        character = character,
-        onUpClick = onUpClick
-    ) {
-        CharacterSections(
-            character = character,
-            modifier = Modifier.padding(it)
-        )
+        MarvelDetailScreen(it, onUpClick)
     }
 }
 
@@ -46,6 +30,6 @@ private fun ScreenLayout(character: Character, onUpClick: () -> Unit) {
 @Composable
 private fun CharacterDetailPreview() {
     MarvelApplication {
-        ScreenLayout(characterPreview, onUpClick = {})
+        MarvelDetailScreen(characterPreview, onUpClick = {})
     }
 }

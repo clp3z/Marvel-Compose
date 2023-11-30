@@ -1,4 +1,4 @@
-package com.clp3z.marvelcompose.ui.screens.detail.views
+package com.clp3z.marvelcompose.ui.screens.characters
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height

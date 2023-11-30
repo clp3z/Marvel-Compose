@@ -8,3 +8,9 @@ interface MarvelItem {
     val references: List<ReferenceList>
     val urls: List<Url>
 }
+
+fun MarvelItem.getReferenceList(type: ReferenceList.Type): List<Reference> =
+    references
+        .filter { it.type == type }
+        .map { it.references }
+        .flatten()

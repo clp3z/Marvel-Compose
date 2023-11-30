@@ -1,4 +1,4 @@
-package com.clp3z.marvelcompose.ui.screens.characters
+package com.clp3z.marvelcompose.ui.screens.events
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -6,20 +6,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import com.clp3z.marvelcompose.repositories.CharactersRepository
-import com.clp3z.marvelcompose.repositories.models.Character
+import com.clp3z.marvelcompose.repositories.EventsRepository
+import com.clp3z.marvelcompose.repositories.models.Event
 import com.clp3z.marvelcompose.ui.screens.common.MarvelListScreen
 
 @Composable
-fun CharactersScreen(onClick: (Character) -> Unit) {
-    var characters by rememberSaveable { mutableStateOf(emptyList<Character>()) }
+fun EventsScreen(onClick: (Event) -> Unit) {
+    var events by rememberSaveable { mutableStateOf(emptyList<Event>()) }
 
     LaunchedEffect(Unit) {
-        characters = CharactersRepository.getCharacters()
+        events = EventsRepository.getEvents()
     }
 
     MarvelListScreen(
-        items = characters,
+        items = events,
         onClick = onClick
     )
 }

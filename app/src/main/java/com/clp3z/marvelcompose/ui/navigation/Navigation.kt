@@ -9,8 +9,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import com.clp3z.marvelcompose.ui.screens.characters.CharacterDetailScreen
 import com.clp3z.marvelcompose.ui.screens.characters.CharactersScreen
-import com.clp3z.marvelcompose.ui.screens.detail.CharacterDetailScreen
 
 @Composable
 fun Navigation() {

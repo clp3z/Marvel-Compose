@@ -1,4 +1,4 @@
-package com.clp3z.marvelcompose.ui.screens.detail.views
+package com.clp3z.marvelcompose.ui.screens.common
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -22,15 +22,15 @@ import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.clp3z.marvelcompose.R
-import com.clp3z.marvelcompose.repositories.models.Character
+import com.clp3z.marvelcompose.repositories.models.MarvelItem
 import com.clp3z.marvelcompose.ui.models.characterPreview
 import com.clp3z.marvelcompose.ui.views.AppBarAction
 import com.clp3z.marvelcompose.ui.views.AppBarOverflowMenu
 import com.clp3z.marvelcompose.ui.views.BackNavigationAction
 import com.clp3z.marvelcompose.ui.views.MenuItemAction
 
-private fun getOverflowMenuItems(character: Character, uriHandler: UriHandler) =
-    character.urls.map {
+private fun getOverflowMenuItems(marvelItem: MarvelItem, uriHandler: UriHandler) =
+    marvelItem.urls.map {
         MenuItemAction(
             name = it.type,
             onMenuItemClicked = { uriHandler.openUri(it.url) }
@@ -38,8 +38,8 @@ private fun getOverflowMenuItems(character: Character, uriHandler: UriHandler) =
     }
 
 @Composable
-fun CharacterScaffold(
-    character: Character,
+fun MarvelDetailScaffold(
+    marvelItem: MarvelItem,
     onUpClick: () -> Unit,
     content: @Composable (PaddingValues) -> Unit
 ) {
@@ -49,14 +49,14 @@ fun CharacterScaffold(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = character.name) },
+                title = { Text(text = marvelItem.name) },
                 navigationIcon = { BackNavigationAction(onUpClick) },
-                actions = { AppBarOverflowMenu(getOverflowMenuItems(character, uriHandler)) }
+                actions = { AppBarOverflowMenu(getOverflowMenuItems(marvelItem, uriHandler)) }
             )
         },
         floatingActionButton = {
-            if (character.urls.isNotEmpty()) {
-                FloatingActionButton(onClick = { shareCharacter(context, character) }) {
+            if (marvelItem.urls.isNotEmpty()) {
+                FloatingActionButton(onClick = { shareMarvelItem(context, marvelItem) }) {
                     Icon(
                         imageVector = Icons.Default.Share,
                         contentDescription = stringResource(R.string.share)
@@ -82,8 +82,8 @@ fun CharacterScaffold(
 @Preview(widthDp = 400, heightDp = 800)
 @Composable
 private fun CharacterScaffoldPreview() {
-    CharacterScaffold(
-        character = characterPreview,
+    MarvelDetailScaffold(
+        marvelItem = characterPreview,
         onUpClick = {},
         content = {}
     )
