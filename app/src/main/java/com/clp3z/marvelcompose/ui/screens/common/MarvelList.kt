@@ -20,7 +20,7 @@ fun <T : MarvelItem> MarvelList(
     LazyVerticalGrid(
         columns = GridCells.Adaptive(180.dp),
         contentPadding = PaddingValues(8.dp),
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
     ) {
         items(items) {
             MarvelListItem(
