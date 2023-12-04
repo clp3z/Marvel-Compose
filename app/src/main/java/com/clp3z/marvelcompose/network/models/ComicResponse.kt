@@ -6,7 +6,7 @@ data class ComicResponse(
     val title: String,
     val issueNumber: Double,
     val variantDescription: String,
-    val description: String,
+    val description: String?,
     val modified: String,
     val isbn: String,
     val upc: String,

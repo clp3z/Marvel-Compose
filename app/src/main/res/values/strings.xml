@@ -2,4 +2,7 @@
     <string name="app_name">Marvel Compose</string>
     <string name="more_options">More options</string>
     <string name="share">Share</string>
+    <string name="characters">Characters</string>
+    <string name="comics">Comics</string>
+    <string name="events">Events</string>
 </resources>

@@ -7,9 +7,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
-import com.clp3z.marvelcompose.MarvelApplication
 import com.clp3z.marvelcompose.repositories.CharactersRepository
 import com.clp3z.marvelcompose.repositories.models.Character
+import com.clp3z.marvelcompose.ui.MarvelScreen
 import com.clp3z.marvelcompose.ui.models.characterPreview
 import com.clp3z.marvelcompose.ui.screens.common.MarvelDetailScreen
 
@@ -29,7 +29,7 @@ fun CharacterDetailScreen(id: Int, onUpClick: () -> Unit) {
 @Preview(widthDp = 400, heightDp = 800)
 @Composable
 private fun CharacterDetailPreview() {
-    MarvelApplication {
+    MarvelScreen {
         MarvelDetailScreen(characterPreview, onUpClick = {})
     }
 }

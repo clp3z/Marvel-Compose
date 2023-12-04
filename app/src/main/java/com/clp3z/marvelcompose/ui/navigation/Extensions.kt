@@ -2,17 +2,19 @@ package com.clp3z.marvelcompose.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 
 internal fun NavGraphBuilder.composable(
-    navigationItem: NavigationItem,
+    navigationCommand: NavigationCommand,
     content: @Composable (NavBackStackEntry) -> Unit
 ) {
     composable(
-        route = navigationItem.route,
-        arguments = navigationItem.arguments
+        route = navigationCommand.route,
+        arguments = navigationCommand.arguments
     ) {
         content(it)
     }
@@ -28,4 +30,14 @@ internal inline fun <reified T> NavBackStackEntry.findArgument(
     }
     requireNotNull(value) { message }
     return value as T
+}
+
+internal fun NavHostController.navigateAndPopToStartDestination(item: NavigationItem) {
+    navigate(item.command.route)  {
+        popUpTo(graph.findStartDestination().id) {
+            saveState = true
+        }
+        launchSingleTop = true
+        restoreState = true
+    }
 }

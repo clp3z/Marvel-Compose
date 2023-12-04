@@ -28,7 +28,7 @@ data class Comic(
 fun ComicResponse.toComic() = Comic(
     id = id,
     name = title,
-    description = description,
+    description = description ?: "",
     thumbnail = thumbnail.toThumbnail().asString(),
     urls = urls.map { it.toUrl() },
     references = listOf(
