@@ -13,7 +13,7 @@ import com.clp3z.marvelcompose.ui.models.eventPreview
 import com.clp3z.marvelcompose.ui.screens.common.MarvelDetailScreen
 
 @Composable
-fun EventDetailScreen(id: Int, onUpClick: () -> Unit) {
+fun EventDetailScreen(id: Int) {
     var event by remember { mutableStateOf<Event?>(null) }
 
     LaunchedEffect(Unit) {
@@ -21,12 +21,12 @@ fun EventDetailScreen(id: Int, onUpClick: () -> Unit) {
     }
 
     event?.let {
-        MarvelDetailScreen(it, onUpClick)
+        MarvelDetailScreen(it)
     }
 }
 
 @Preview(widthDp = 400, heightDp = 800)
 @Composable
 fun EventDetailScreenPreview() {
-    MarvelDetailScreen(eventPreview, onUpClick = {})
+    MarvelDetailScreen(eventPreview)
 }

@@ -14,7 +14,7 @@ import com.clp3z.marvelcompose.ui.models.characterPreview
 import com.clp3z.marvelcompose.ui.screens.common.MarvelDetailScreen
 
 @Composable
-fun CharacterDetailScreen(id: Int, onUpClick: () -> Unit) {
+fun CharacterDetailScreen(id: Int) {
     var character by remember { mutableStateOf<Character?>(null) }
 
     LaunchedEffect(Unit) {
@@ -22,7 +22,7 @@ fun CharacterDetailScreen(id: Int, onUpClick: () -> Unit) {
     }
 
     character?.let {
-        MarvelDetailScreen(it, onUpClick)
+        MarvelDetailScreen(it)
     }
 }
 
@@ -30,6 +30,6 @@ fun CharacterDetailScreen(id: Int, onUpClick: () -> Unit) {
 @Composable
 private fun CharacterDetailPreview() {
     MarvelScreen {
-        MarvelDetailScreen(characterPreview, onUpClick = {})
+        MarvelDetailScreen(characterPreview)
     }
 }

@@ -44,10 +44,7 @@ private fun NavGraphBuilder.charactersScreenNavigation(navController: NavControl
 
         composable(NavigationCommand.ContentDetail(Feature.CHARACTERS)) {
             val id = it.findArgument<Int>(NavigationArgument.Id)
-            CharacterDetailScreen(
-                id = id,
-                onUpClick = { navController.popBackStack() }
-            )
+            CharacterDetailScreen(id = id)
         }
     }
 }
@@ -71,10 +68,7 @@ private fun NavGraphBuilder.comicsScreenNavigation(navController: NavController)
 
         composable(NavigationCommand.ContentDetail(Feature.COMICS)) {
             val id = it.findArgument<Int>(NavigationArgument.Id)
-            ComicDetailScreen(
-                id = id,
-                onUpClick = { navController.popBackStack() }
-            )
+            ComicDetailScreen(id = id)
         }
     }
 }
@@ -98,10 +92,7 @@ private fun NavGraphBuilder.eventsScreenNavigation(navController: NavController)
 
         composable(NavigationCommand.ContentDetail(Feature.EVENTS)) {
             val id = it.findArgument<Int>(NavigationArgument.Id)
-            EventDetailScreen(
-                id = id,
-                onUpClick = { navController.popBackStack() }
-            )
+            EventDetailScreen(id = id)
         }
     }
 }
