@@ -3,9 +3,10 @@ package com.clp3z.marvelcompose.ui.screens.comics
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.ScrollableTabRow
 import androidx.compose.material.Tab
-import androidx.compose.material.TabRow
 import androidx.compose.material.TabRowDefaults
 import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material.Text
@@ -17,8 +18,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.clp3z.marvelcompose.repositories.ComicsRepository
 import com.clp3z.marvelcompose.repositories.models.Comic
+import com.clp3z.marvelcompose.repositories.models.toStringResourceId
 import com.clp3z.marvelcompose.ui.screens.common.MarvelList
 import kotlinx.coroutines.launch
 
@@ -31,36 +35,46 @@ fun ComicsScreen(onClick: (Comic) -> Unit) {
         comics = ComicsRepository.getComics()
     }
 
-    val formats = Comic.Format.values().take(3)
+    val formats = Comic.Format.values().toList()
     val pagerState = rememberPagerState { formats.size }
-    val coroutineScope = rememberCoroutineScope()
 
     Column {
-        TabRow(
-            selectedTabIndex = pagerState.currentPage,
-            indicator = { tabPositions ->
-                // This doesn't work on material 1.5.X
-                TabRowDefaults.Indicator(
-                    Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage])
-                )
-            }
-        ) {
-            formats.forEach {
-                Tab(
-                    selected = it.ordinal == pagerState.currentPage,
-                    text = { Text(text = it.name) },
-                    onClick = {
-                        coroutineScope.launch {
-                            pagerState.animateScrollToPage(it.ordinal)
-                        }
-                    }
-                )
-            }
-        }
+        ComicsScrollableTabs(pagerState, formats)
         HorizontalPager(state = pagerState) {
             MarvelList(
                 items = comics,
                 onClick = onClick
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun ComicsScrollableTabs(
+    pagerState: PagerState,
+    formats: List<Comic.Format>
+) {
+    val coroutineScope = rememberCoroutineScope()
+    ScrollableTabRow(
+        selectedTabIndex = pagerState.currentPage,
+        edgePadding = 0.dp,
+        indicator = { tabPositions ->
+            // This doesn't work on material 1.5.X
+            TabRowDefaults.Indicator(
+                Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage])
+            )
+        }
+    ) {
+        formats.forEach {
+            Tab(
+                selected = it.ordinal == pagerState.currentPage,
+                text = { Text(text = stringResource(id = it.toStringResourceId())) },
+                onClick = {
+                    coroutineScope.launch {
+                        pagerState.animateScrollToPage(it.ordinal)
+                    }
+                }
             )
         }
     }

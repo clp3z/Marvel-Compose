@@ -1,5 +1,6 @@
 package com.clp3z.marvelcompose.repositories.models
 
+import com.clp3z.marvelcompose.R
 import com.clp3z.marvelcompose.network.models.ComicResponse
 import com.clp3z.marvelcompose.repositories.models.Comic.Format
 
@@ -60,4 +61,15 @@ fun Format.asString() = when (this) {
     Format.GRAPHIC_NOVEL -> "graphic novel"
     Format.DIGITAL_COMIC -> "digital comic"
     Format.INFINITE_COMIC -> "infinite comic"
+}
+
+fun Format.toStringResourceId() = when (this) {
+    Format.COMIC -> R.string.comic
+    Format.MAGAZINE -> R.string.magazine
+    Format.TRADE_PAPERBACK -> R.string.trade_paperback
+    Format.HARDCOVER -> R.string.hardcover
+    Format.DIGEST -> R.string.digest
+    Format.GRAPHIC_NOVEL -> R.string.graphic_novel
+    Format.DIGITAL_COMIC -> R.string.digital_comic
+    Format.INFINITE_COMIC -> R.string.infinite_comic
 }
