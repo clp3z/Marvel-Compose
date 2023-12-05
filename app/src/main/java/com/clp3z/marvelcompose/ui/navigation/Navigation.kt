@@ -1,11 +1,20 @@
 package com.clp3z.marvelcompose.ui.navigation
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.clp3z.marvelcompose.R
 import com.clp3z.marvelcompose.ui.screens.characters.CharacterDetailScreen
 import com.clp3z.marvelcompose.ui.screens.characters.CharactersScreen
 import com.clp3z.marvelcompose.ui.screens.comics.ComicDetailScreen
@@ -22,6 +31,7 @@ fun Navigation(navController: NavHostController) {
         charactersScreenNavigation(navController)
         comicsScreenNavigation(navController)
         eventsScreenNavigation(navController)
+        settingsScreen()
     }
 }
 
@@ -93,6 +103,20 @@ private fun NavGraphBuilder.eventsScreenNavigation(navController: NavController)
         composable(NavigationCommand.ContentDetail(Feature.EVENTS)) {
             val id = it.findArgument<Int>(NavigationArgument.Id)
             EventDetailScreen(id = id)
+        }
+    }
+}
+
+private fun NavGraphBuilder.settingsScreen() {
+    composable(NavigationCommand.ContentMain(Feature.SETTINGS).route) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = stringResource(id = R.string.settings),
+                style = MaterialTheme.typography.h3
+            )
         }
     }
 }

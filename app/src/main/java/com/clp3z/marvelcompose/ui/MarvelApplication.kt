@@ -1,15 +1,7 @@
 package com.clp3z.marvelcompose.ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
@@ -22,9 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.clp3z.marvelcompose.R
@@ -36,7 +26,6 @@ import com.clp3z.marvelcompose.ui.views.AppBarAction
 import com.clp3z.marvelcompose.ui.views.BackNavigationAction
 import com.clp3z.marvelcompose.ui.views.BottomNavigation
 import com.clp3z.marvelcompose.ui.views.DrawerContent
-import com.clp3z.marvelcompose.ui.views.DrawerItem
 import kotlinx.coroutines.launch
 
 @Composable
@@ -49,6 +38,12 @@ fun MarvelApplication() {
     val coroutineScope = rememberCoroutineScope()
     val drawerItems = listOf(NavigationItem.HOME, NavigationItem.SETTINGS)
     val bottomBarItems = listOf(NavigationItem.CHARACTERS, NavigationItem.COMICS, NavigationItem.EVENTS)
+    val showBottomNavigation = currentRoute in bottomBarItems.map { it.command.route }
+
+    val drawerSelectedIndex = if (showBottomNavigation)
+        drawerItems.indexOf(NavigationItem.HOME)
+    else
+        drawerItems.indexOfFirst { it.command.route == currentRoute }
 
     MarvelScreen {
         Scaffold(
@@ -69,18 +64,24 @@ fun MarvelApplication() {
                 )
             },
             bottomBar = {
-                BottomNavigation(
-                    navigationItems = bottomBarItems,
-                    currentRoute = currentRoute,
-                    onNavigationItemClicked = {
-                        navController.navigateAndPopToStartDestination(it)
-                    }
-                )
+                if (showBottomNavigation) {
+                    BottomNavigation(
+                        navigationItems = bottomBarItems,
+                        currentRoute = currentRoute,
+                        onNavigationItemClicked = {
+                            navController.navigateAndPopToStartDestination(it)
+                        }
+                    )
+                }
             },
             drawerContent = {
                 DrawerContent(
+                    selectedIndex = drawerSelectedIndex,
                     drawerItems = drawerItems,
-                    onDrawerItemClicked = { }
+                    onDrawerItemClicked = {
+                        coroutineScope.launch { scaffoldState.drawerState.close() }
+                        navController.navigate(it.command.route)
+                    }
                 )
             },
             scaffoldState = scaffoldState
