@@ -3,6 +3,7 @@ package com.clp3z.marvelcompose.ui.navigation
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Event
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.PeopleAlt
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -15,6 +16,17 @@ enum class NavigationItem(
     val icon: ImageVector,
     val command: NavigationCommand
 ) {
+    HOME(
+        title = R.string.home,
+        icon = Icons.Default.Home,
+        command = NavigationCommand.ContentMain(Feature.CHARACTERS)
+    ),
+    SETTINGS(
+        title = R.string.settings,
+        icon = Icons.Default.PeopleAlt,
+        command = NavigationCommand.ContentMain(Feature.SETTINGS)
+    ),
+
     CHARACTERS(
         title = R.string.characters,
         icon = Icons.Default.PeopleAlt,

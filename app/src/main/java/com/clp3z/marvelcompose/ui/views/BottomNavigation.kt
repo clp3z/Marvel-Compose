@@ -10,11 +10,12 @@ import com.clp3z.marvelcompose.ui.navigation.NavigationItem
 
 @Composable
 fun BottomNavigation(
+    navigationItems: List<NavigationItem>,
     currentRoute: String,
     onNavigationItemClicked: (NavigationItem) -> Unit
 ) {
     BottomNavigation {
-        NavigationItem.values().forEach { item ->
+        navigationItems.forEach { item ->
             val title = stringResource(id = item.title)
             BottomNavigationItem(
                 label = { Text(text = title) },
