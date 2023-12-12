@@ -9,85 +9,61 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.clp3z.marvelcompose.R
 import com.clp3z.marvelcompose.ui.navigation.Navigation
-import com.clp3z.marvelcompose.ui.navigation.NavigationItem
-import com.clp3z.marvelcompose.ui.navigation.navigateAndPopToStartDestination
 import com.clp3z.marvelcompose.ui.theme.MarvelComposeTheme
 import com.clp3z.marvelcompose.ui.views.AppBarAction
 import com.clp3z.marvelcompose.ui.views.BackNavigationAction
 import com.clp3z.marvelcompose.ui.views.BottomNavigation
 import com.clp3z.marvelcompose.ui.views.DrawerContent
-import kotlinx.coroutines.launch
 
 @Composable
 fun MarvelApplication() {
-    val navController = rememberNavController()
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route ?: ""
-    val showUpNavigation = currentRoute !in NavigationItem.values().map { it.command.route }
-    val scaffoldState = rememberScaffoldState()
-    val coroutineScope = rememberCoroutineScope()
-    val drawerItems = listOf(NavigationItem.HOME, NavigationItem.SETTINGS)
-    val bottomBarItems = listOf(NavigationItem.CHARACTERS, NavigationItem.COMICS, NavigationItem.EVENTS)
-    val showBottomNavigation = currentRoute in bottomBarItems.map { it.command.route }
+    val applicationState = rememberMarvelApplicationState()
 
-    val drawerSelectedIndex = if (showBottomNavigation)
-        drawerItems.indexOf(NavigationItem.HOME)
-    else
-        drawerItems.indexOfFirst { it.command.route == currentRoute }
-
-    MarvelScreen {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = { Text(text = stringResource(id = R.string.app_name)) },
-                    navigationIcon = {
-                        when (showUpNavigation){
-                            true -> BackNavigationAction(navController::navigateUp)
-                            false -> AppBarAction(
-                                imageVector = Icons.Default.Menu,
-                                onClick = {
-                                    coroutineScope.launch { scaffoldState.drawerState.open() }
-                                }
-                            )
-                        }
-                    } 
-                )
-            },
-            bottomBar = {
-                if (showBottomNavigation) {
-                    BottomNavigation(
-                        navigationItems = bottomBarItems,
-                        currentRoute = currentRoute,
-                        onNavigationItemClicked = {
-                            navController.navigateAndPopToStartDestination(it)
+    with(applicationState) {
+        MarvelScreen {
+            Scaffold(
+                topBar = {
+                    TopAppBar(
+                        title = { Text(text = stringResource(id = R.string.app_name)) },
+                        navigationIcon = {
+                            when (showUpNavigation){
+                                true -> BackNavigationAction(
+                                    onUpClick = { applicationState.onUpClicked() }
+                                )
+                                false -> AppBarAction(
+                                    imageVector = Icons.Default.Menu,
+                                    onClick = { applicationState.onMenuClicked() }
+                                )
+                            }
                         }
                     )
-                }
-            },
-            drawerContent = {
-                DrawerContent(
-                    selectedIndex = drawerSelectedIndex,
-                    drawerItems = drawerItems,
-                    onDrawerItemClicked = {
-                        coroutineScope.launch { scaffoldState.drawerState.close() }
-                        navController.navigate(it.command.route)
+                },
+                bottomBar = {
+                    if (showBottomNavigation) {
+                        BottomNavigation(
+                            navigationItems = MarvelApplicationState.BOTTOM_BAR_ITEMS,
+                            currentRoute = currentRoute,
+                            onNavigationItemClicked = { applicationState.onNavigationItemClicked(it)}
+                        )
                     }
-                )
-            },
-            scaffoldState = scaffoldState
-        ) {
-            Box(modifier = Modifier.padding(it)) {
-                Navigation(navController)
+                },
+                drawerContent = {
+                    DrawerContent(
+                        selectedIndex = drawerSelectedIndex,
+                        drawerItems = MarvelApplicationState.DRAWER_ITEMS,
+                        onDrawerItemClicked = { applicationState.onDrawerItemClicked(it) }
+                    )
+                },
+                scaffoldState = scaffoldState
+            ) {
+                Box(modifier = Modifier.padding(it)) {
+                    Navigation(navController)
+                }
             }
         }
     }
