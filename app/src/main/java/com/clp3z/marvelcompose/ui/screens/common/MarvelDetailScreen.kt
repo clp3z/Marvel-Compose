@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.clp3z.marvelcompose.repositories.models.MarvelItem
 import com.clp3z.marvelcompose.ui.screens.characters.section
@@ -19,16 +20,18 @@ fun <T : MarvelItem> MarvelDetailScreen(
     item: T?
 ) {
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
         if (isLoading) CircularProgressIndicator()
 
         item?.let { marvelItem ->
-            MarvelDetailScaffold(marvelItem = marvelItem) {
+            MarvelDetailScaffold(marvelItem = marvelItem) { paddingValues ->
                 LazyColumn (
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(it)
+                        .align(Alignment.TopCenter)
+                        .padding(paddingValues)
                 ) {
                     item {
                         Header(marvelItem)

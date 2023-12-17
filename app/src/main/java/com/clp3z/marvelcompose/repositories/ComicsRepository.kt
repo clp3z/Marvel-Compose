@@ -11,22 +11,22 @@ object ComicsRepository {
     private const val PAGINATION_OFFSET = 0
     private const val NUMBER_OF_CHARACTERS = 20
 
-    suspend fun getComics(format: Format = Format.COMIC): List<Comic> =
-        MarvelServerClient.comicsService
-            .getComics(
-                offset = PAGINATION_OFFSET,
-                limit = NUMBER_OF_CHARACTERS,
-                format = format.asString()
-            )
-            .data
-            .results
-            .map { it.toComic() }
+    suspend fun getComics(format: Format = Format.COMIC): List<Comic> = MarvelServerClient
+        .comicsService
+        .getComics(
+            offset = PAGINATION_OFFSET,
+            limit = NUMBER_OF_CHARACTERS,
+            format = format.asString()
+        )
+        .data
+        .results
+        .map { it.toComic() }
 
-    suspend fun getComic(id: Int): Comic =
-        MarvelServerClient.comicsService
-            .getComic(id)
-            .data
-            .results
-            .first()
-            .toComic()
+    suspend fun getComic(id: Int): Comic = MarvelServerClient
+        .comicsService
+        .getComic(id)
+        .data
+        .results
+        .first()
+        .toComic()
 }

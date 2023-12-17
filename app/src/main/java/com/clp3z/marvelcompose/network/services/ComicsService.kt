@@ -17,6 +17,6 @@ interface ComicsService {
 
     @GET("/v1/public/comics/{comicId}")
     suspend fun getComic(
-        @Path("id") comicId: Int,
+        @Path("comicId") comicId: Int,
     ): ServerResponse<ComicResponse>
 }

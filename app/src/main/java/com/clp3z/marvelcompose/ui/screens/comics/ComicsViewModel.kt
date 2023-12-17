@@ -15,8 +15,8 @@ class ComicsViewModel : ViewModel() {
         val comics: List<Comic> = emptyList()
     )
 
-    var viewState: Map<Comic.Format, MutableState<ViewState>> =
-        Comic.Format.values().associate { it to mutableStateOf(ViewState()) }
+    val viewState: Map<Comic.Format, MutableState<ViewState>> =
+        Comic.Format.values().associateWith { mutableStateOf(ViewState()) }
 
     fun requestFormat(format: Comic.Format) {
         val viewState = viewState.getValue(format)

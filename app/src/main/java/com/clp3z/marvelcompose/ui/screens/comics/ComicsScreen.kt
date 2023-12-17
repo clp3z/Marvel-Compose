@@ -39,6 +39,7 @@ fun ComicsScreen(
             val format = formats[page]
             viewModel.requestFormat(format)
             val pageState by viewModel.viewState.getValue(format)
+
             MarvelList(
                 isLoading = pageState.isLoading,
                 items = pageState.comics,
