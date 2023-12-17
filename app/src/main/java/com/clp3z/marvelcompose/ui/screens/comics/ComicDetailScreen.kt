@@ -1,32 +1,19 @@
 package com.clp3z.marvelcompose.ui.screens.comics
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
-import com.clp3z.marvelcompose.repositories.ComicsRepository
-import com.clp3z.marvelcompose.repositories.models.Comic
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.clp3z.marvelcompose.ui.MarvelScreen
 import com.clp3z.marvelcompose.ui.models.comicPreview
 import com.clp3z.marvelcompose.ui.screens.common.MarvelDetailScreen
 
 @Composable
-fun ComicDetailScreen(id: Int) {
-    var comic by remember { mutableStateOf<Comic?>(null) }
+fun ComicDetailScreen(viewModel: ComicDetailViewModel = viewModel()) {
 
-    LaunchedEffect(Unit) {
-        comic = ComicsRepository.getComic(id)
-    }
-
-    comic?.let {
-        MarvelDetailScreen(
-            isLoading = false,
-            item = it
-        )
-    }
+    MarvelDetailScreen(
+        isLoading = viewModel.viewState.isLoading,
+        item = viewModel.viewState.comic
+    )
 }
 
 @Preview(widthDp = 400, heightDp = 800)

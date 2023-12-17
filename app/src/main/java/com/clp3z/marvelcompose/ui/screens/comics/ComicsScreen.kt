@@ -11,16 +11,12 @@ import androidx.compose.material.TabRowDefaults
 import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.clp3z.marvelcompose.repositories.ComicsRepository
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.clp3z.marvelcompose.repositories.models.Comic
 import com.clp3z.marvelcompose.repositories.models.toStringResourceId
 import com.clp3z.marvelcompose.ui.screens.common.MarvelList
@@ -28,22 +24,24 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ComicsScreen(onClick: (Comic) -> Unit) {
-    var comics by rememberSaveable { mutableStateOf(emptyList<Comic>()) }
-
-    LaunchedEffect(Unit) {
-        comics = ComicsRepository.getComics()
-    }
+fun ComicsScreen(
+    onClick: (Comic) -> Unit,
+    viewModel: ComicsViewModel = viewModel(),
+) {
 
     val formats = Comic.Format.values().toList()
     val pagerState = rememberPagerState { formats.size }
 
     Column {
         ComicsScrollableTabs(pagerState, formats)
-        HorizontalPager(state = pagerState) {
+        HorizontalPager(state = pagerState) { page ->
+
+            val format = formats[page]
+            viewModel.requestFormat(format)
+            val pageState by viewModel.viewState.getValue(format)
             MarvelList(
-                isLoading = false,
-                items = comics,
+                isLoading = pageState.isLoading,
+                items = pageState.comics,
                 onClick = onClick
             )
         }

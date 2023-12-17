@@ -76,8 +76,7 @@ private fun NavGraphBuilder.comicsScreenNavigation(navController: NavController)
         }
 
         composable(NavigationCommand.ContentDetail(Feature.COMICS)) {
-            val id = it.findArgument<Int>(NavigationArgument.Id)
-            ComicDetailScreen(id = id)
+            ComicDetailScreen()
         }
     }
 }
@@ -100,8 +99,7 @@ private fun NavGraphBuilder.eventsScreenNavigation(navController: NavController)
         }
 
         composable(NavigationCommand.ContentDetail(Feature.EVENTS)) {
-            val id = it.findArgument<Int>(NavigationArgument.Id)
-            EventDetailScreen(id = id)
+            EventDetailScreen()
         }
     }
 }

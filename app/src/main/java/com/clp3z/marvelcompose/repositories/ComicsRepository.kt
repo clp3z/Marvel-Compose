@@ -6,12 +6,12 @@ import com.clp3z.marvelcompose.repositories.models.Comic.Format
 import com.clp3z.marvelcompose.repositories.models.asString
 import com.clp3z.marvelcompose.repositories.models.toComic
 
-object ComicsRepository : Repository<Comic>() {
+object ComicsRepository {
 
     private const val PAGINATION_OFFSET = 0
-    private const val NUMBER_OF_CHARACTERS = 100
+    private const val NUMBER_OF_CHARACTERS = 20
 
-    suspend fun getComics(format: Format = Format.COMIC): List<Comic> = super.getItems {
+    suspend fun getComics(format: Format = Format.COMIC): List<Comic> =
         MarvelServerClient.comicsService
             .getComics(
                 offset = PAGINATION_OFFSET,
@@ -21,14 +21,12 @@ object ComicsRepository : Repository<Comic>() {
             .data
             .results
             .map { it.toComic() }
-    }
 
-    suspend fun getComic(id: Int): Comic = super.getItem(id) {
+    suspend fun getComic(id: Int): Comic =
         MarvelServerClient.comicsService
             .getComic(id)
             .data
             .results
             .first()
             .toComic()
-    }
 }
