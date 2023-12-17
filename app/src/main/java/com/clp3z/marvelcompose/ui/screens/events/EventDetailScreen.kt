@@ -21,12 +21,18 @@ fun EventDetailScreen(id: Int) {
     }
 
     event?.let {
-        MarvelDetailScreen(it)
+        MarvelDetailScreen(
+            isLoading = false,
+            item = it
+        )
     }
 }
 
 @Preview(widthDp = 400, heightDp = 800)
 @Composable
 fun EventDetailScreenPreview() {
-    MarvelDetailScreen(eventPreview)
+    MarvelDetailScreen(
+        isLoading = false,
+        item = eventPreview
+    )
 }

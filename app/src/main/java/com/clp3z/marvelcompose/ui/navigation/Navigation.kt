@@ -53,8 +53,7 @@ private fun NavGraphBuilder.charactersScreenNavigation(navController: NavControl
         }
 
         composable(NavigationCommand.ContentDetail(Feature.CHARACTERS)) {
-            val id = it.findArgument<Int>(NavigationArgument.Id)
-            CharacterDetailScreen(id = id)
+            CharacterDetailScreen()
         }
     }
 }

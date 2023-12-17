@@ -8,10 +8,12 @@ import com.clp3z.marvelcompose.ui.models.characters
 
 @Composable
 fun <T : MarvelItem> MarvelListScreen(
+    isLoading: Boolean,
     items: List<T>,
     onClick: (T) -> Unit
 ) {
     MarvelList(
+        isLoading = isLoading,
         items = items,
         onClick = onClick
     )
@@ -22,6 +24,7 @@ fun <T : MarvelItem> MarvelListScreen(
 private fun MarvelListScreenPreview() {
     MarvelScreen {
         MarvelListScreen(
+            isLoading = false,
             items = characters,
             onClick = {}
         )

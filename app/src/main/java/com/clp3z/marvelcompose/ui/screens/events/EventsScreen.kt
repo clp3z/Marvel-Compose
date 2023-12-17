@@ -19,6 +19,7 @@ fun EventsScreen(onClick: (Event) -> Unit) {
     }
 
     MarvelListScreen(
+        isLoading = false,
         items = events,
         onClick = onClick
     )

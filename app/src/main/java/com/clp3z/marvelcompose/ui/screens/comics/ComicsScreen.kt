@@ -42,6 +42,7 @@ fun ComicsScreen(onClick: (Comic) -> Unit) {
         ComicsScrollableTabs(pagerState, formats)
         HorizontalPager(state = pagerState) {
             MarvelList(
+                isLoading = false,
                 items = comics,
                 onClick = onClick
             )

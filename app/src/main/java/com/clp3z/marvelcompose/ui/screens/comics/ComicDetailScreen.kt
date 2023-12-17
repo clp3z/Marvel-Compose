@@ -22,7 +22,10 @@ fun ComicDetailScreen(id: Int) {
     }
 
     comic?.let {
-        MarvelDetailScreen(it)
+        MarvelDetailScreen(
+            isLoading = false,
+            item = it
+        )
     }
 }
 
@@ -30,6 +33,9 @@ fun ComicDetailScreen(id: Int) {
 @Composable
 private fun ComicDetailScreenPreview() {
     MarvelScreen {
-        MarvelDetailScreen(comicPreview)
+        MarvelDetailScreen(
+            isLoading = false,
+            item = comicPreview
+        )
     }
 }
