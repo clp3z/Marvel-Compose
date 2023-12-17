@@ -1,12 +1,12 @@
 package com.clp3z.marvelcompose.ui.screens.events
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.clp3z.marvelcompose.repositories.EventsRepository
 import com.clp3z.marvelcompose.repositories.models.Event
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class EventsViewModel : ViewModel() {
@@ -16,13 +16,13 @@ class EventsViewModel : ViewModel() {
         val events: List<Event> = emptyList()
     )
 
-    var viewState by mutableStateOf(ViewState())
-        private set
+    private val _viewState = MutableStateFlow(ViewState())
+    val viewState get() = _viewState.asStateFlow()
 
     init {
         viewModelScope.launch {
-            viewState = ViewState(isLoading = true)
-            viewState = ViewState(events = EventsRepository.getEvents())
+            _viewState.update { ViewState(isLoading = true) }
+            _viewState.update { ViewState(events = EventsRepository.getEvents()) }
         }
     }
 }

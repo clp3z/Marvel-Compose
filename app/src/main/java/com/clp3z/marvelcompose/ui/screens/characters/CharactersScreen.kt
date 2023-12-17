@@ -1,6 +1,8 @@
 package com.clp3z.marvelcompose.ui.screens.characters
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.clp3z.marvelcompose.repositories.models.Character
 import com.clp3z.marvelcompose.ui.screens.common.MarvelListScreen
@@ -10,10 +12,10 @@ fun CharactersScreen(
     onClick: (Character) -> Unit,
     viewModel: CharactersViewModel = viewModel(),
 ) {
-
+    val viewState by viewModel.viewState.collectAsState()
     MarvelListScreen(
-        isLoading = viewModel.viewState.isLoading,
-        items = viewModel.viewState.characters,
+        isLoading = viewState.isLoading,
+        items = viewState.characters,
         onClick = onClick
     )
 }

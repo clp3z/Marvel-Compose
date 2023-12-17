@@ -1,6 +1,8 @@
 package com.clp3z.marvelcompose.ui.screens.events
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.clp3z.marvelcompose.ui.models.eventPreview
@@ -9,9 +11,10 @@ import com.clp3z.marvelcompose.ui.screens.common.MarvelDetailScreen
 @Composable
 fun EventDetailScreen(viewModel: EventDetailViewModel = viewModel()) {
 
+    val viewState by viewModel.viewState.collectAsState()
     MarvelDetailScreen(
-        isLoading = viewModel.viewState.isLoading,
-        item = viewModel.viewState.event
+        isLoading = viewState.isLoading,
+        item = viewState.event
     )
 }
 

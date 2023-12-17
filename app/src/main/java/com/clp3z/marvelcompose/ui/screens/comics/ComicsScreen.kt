@@ -11,6 +11,7 @@ import androidx.compose.material.TabRowDefaults
 import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -38,7 +39,8 @@ fun ComicsScreen(
 
             val format = formats[page]
             viewModel.requestFormat(format)
-            val pageState by viewModel.viewState.getValue(format)
+            val pageViewState by viewModel.viewState.collectAsState()
+            val pageState by pageViewState.getValue(format).collectAsState()
 
             MarvelList(
                 isLoading = pageState.isLoading,

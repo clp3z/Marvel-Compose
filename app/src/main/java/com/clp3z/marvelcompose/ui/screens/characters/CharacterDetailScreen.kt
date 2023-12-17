@@ -1,6 +1,8 @@
 package com.clp3z.marvelcompose.ui.screens.characters
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.clp3z.marvelcompose.ui.MarvelScreen
@@ -9,10 +11,10 @@ import com.clp3z.marvelcompose.ui.screens.common.MarvelDetailScreen
 
 @Composable
 fun CharacterDetailScreen(viewModel: CharacterDetailViewModel = viewModel()) {
-
+    val viewState by viewModel.viewState.collectAsState()
     MarvelDetailScreen(
-        isLoading = viewModel.viewState.isLoading,
-        item = viewModel.viewState.character,
+        isLoading = viewState.isLoading,
+        item = viewState.character,
     )
 }
 
