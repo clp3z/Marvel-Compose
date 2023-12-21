@@ -3,8 +3,10 @@ package com.clp3z.marvelcompose.ui.screens.comics
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.clp3z.marvelcompose.repositories.ComicsRepository
-import com.clp3z.marvelcompose.repositories.models.Comic
+import arrow.core.Either
+import com.clp3z.marvelcompose.repository.ComicsRepository
+import com.clp3z.marvelcompose.repository.models.Comic
+import com.clp3z.marvelcompose.repository.models.Result
 import com.clp3z.marvelcompose.ui.navigation.NavigationArgument
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +17,7 @@ class ComicDetailViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
 
     data class ViewState(
         val isLoading: Boolean = false,
-        val comic: Comic? = null
+        val comic: Result<Comic?> = Either.Right(null)
     )
 
     private var _viewState = MutableStateFlow(ViewState())

@@ -2,7 +2,7 @@ package com.clp3z.marvelcompose.ui.screens.common
 
 import android.content.Context
 import androidx.core.app.ShareCompat
-import com.clp3z.marvelcompose.repositories.models.MarvelItem
+import com.clp3z.marvelcompose.repository.models.MarvelItem
 
 fun shareMarvelItem(context: Context, marvelItem: MarvelItem) {
     ShareCompat.IntentBuilder(context)

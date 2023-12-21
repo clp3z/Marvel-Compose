@@ -12,7 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.clp3z.marvelcompose.repositories.models.MarvelItem
+import com.clp3z.marvelcompose.repository.models.MarvelItem
+
 
 @Composable
 fun <T : MarvelItem> MarvelList(

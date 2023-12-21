@@ -18,8 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.clp3z.marvelcompose.repositories.models.Comic
-import com.clp3z.marvelcompose.repositories.models.toStringResourceId
+import com.clp3z.marvelcompose.repository.models.Comic
+import com.clp3z.marvelcompose.repository.models.toStringResourceId
+import com.clp3z.marvelcompose.ui.screens.common.ErrorMessage
 import com.clp3z.marvelcompose.ui.screens.common.MarvelList
 import kotlinx.coroutines.launch
 
@@ -39,13 +40,18 @@ fun ComicsScreen(
 
             val format = formats[page]
             viewModel.requestFormat(format)
-            val pageViewState by viewModel.viewState.collectAsState()
-            val pageState by pageViewState.getValue(format).collectAsState()
+            val viewState by viewModel.viewState.collectAsState()
+            val pageState by viewState.getValue(format).collectAsState()
 
-            MarvelList(
-                isLoading = pageState.isLoading,
-                items = pageState.comics,
-                onClick = onClick
+            pageState.comics.fold(
+                ifLeft = { ErrorMessage(it) },
+                ifRight = {
+                    MarvelList(
+                        isLoading = pageState.isLoading,
+                        items = it,
+                        onClick = onClick
+                    )
+                }
             )
         }
     }

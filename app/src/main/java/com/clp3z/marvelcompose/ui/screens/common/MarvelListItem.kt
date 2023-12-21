@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.clp3z.marvelcompose.repositories.models.MarvelItem
+import com.clp3z.marvelcompose.repository.models.MarvelItem
 
 @Composable
 fun MarvelListItem(marvelItem: MarvelItem, modifier: Modifier = Modifier) {

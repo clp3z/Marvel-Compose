@@ -1,11 +1,11 @@
 package com.clp3z.marvelcompose.ui.models
 
-import com.clp3z.marvelcompose.repositories.models.Character
-import com.clp3z.marvelcompose.repositories.models.Comic
-import com.clp3z.marvelcompose.repositories.models.Event
-import com.clp3z.marvelcompose.repositories.models.Reference
-import com.clp3z.marvelcompose.repositories.models.ReferenceList
-import com.clp3z.marvelcompose.repositories.models.Url
+import com.clp3z.marvelcompose.repository.models.Character
+import com.clp3z.marvelcompose.repository.models.Comic
+import com.clp3z.marvelcompose.repository.models.Event
+import com.clp3z.marvelcompose.repository.models.Reference
+import com.clp3z.marvelcompose.repository.models.ReferenceList
+import com.clp3z.marvelcompose.repository.models.Url
 
 val characterPreview = Character(
     id = 1011334,

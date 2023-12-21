@@ -2,8 +2,10 @@ package com.clp3z.marvelcompose.ui.screens.comics
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.clp3z.marvelcompose.repositories.ComicsRepository
-import com.clp3z.marvelcompose.repositories.models.Comic
+import arrow.core.Either
+import com.clp3z.marvelcompose.repository.ComicsRepository
+import com.clp3z.marvelcompose.repository.models.Comic
+import com.clp3z.marvelcompose.repository.models.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -13,7 +15,7 @@ class ComicsViewModel : ViewModel() {
 
     data class ViewState(
         val isLoading: Boolean = false,
-        val comics: List<Comic> = emptyList()
+        val comics: Result<List<Comic>> = Either.Right(emptyList())
     )
 
     private val _viewState = MutableStateFlow(
@@ -23,7 +25,7 @@ class ComicsViewModel : ViewModel() {
 
     fun requestFormat(format: Comic.Format) {
         val currentViewState: MutableStateFlow<ViewState> = viewState.value.getValue(format)
-        if (currentViewState.value.comics.isNotEmpty()) return
+        if (currentViewState.value.comics.isRight { it.isNotEmpty() }) return
 
         viewModelScope.launch {
             currentViewState.update { ViewState(isLoading = true) }

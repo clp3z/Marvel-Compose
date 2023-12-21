@@ -1,4 +1,4 @@
-package com.clp3z.marvelcompose.repositories.models
+package com.clp3z.marvelcompose.repository.models
 
 interface MarvelItem {
     val id: Int

@@ -5,6 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import arrow.core.right
 import com.clp3z.marvelcompose.ui.models.eventPreview
 import com.clp3z.marvelcompose.ui.screens.common.MarvelDetailScreen
 
@@ -23,6 +24,6 @@ fun EventDetailScreen(viewModel: EventDetailViewModel = viewModel()) {
 fun EventDetailScreenPreview() {
     MarvelDetailScreen(
         isLoading = false,
-        item = eventPreview
+        item = eventPreview.right()
     )
 }

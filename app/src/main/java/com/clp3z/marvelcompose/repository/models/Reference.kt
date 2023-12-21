@@ -1,4 +1,4 @@
-package com.clp3z.marvelcompose.repositories.models
+package com.clp3z.marvelcompose.repository.models
 
 import com.clp3z.marvelcompose.network.models.ReferenceResponse
 

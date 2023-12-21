@@ -19,8 +19,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.clp3z.marvelcompose.R
-import com.clp3z.marvelcompose.repositories.models.Reference
-import com.clp3z.marvelcompose.repositories.models.ReferenceList
+import com.clp3z.marvelcompose.repository.models.Reference
+import com.clp3z.marvelcompose.repository.models.ReferenceList
 import com.clp3z.marvelcompose.ui.views.ListItem
 
 fun LazyListScope.section(

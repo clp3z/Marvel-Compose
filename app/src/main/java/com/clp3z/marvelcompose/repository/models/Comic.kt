@@ -1,8 +1,8 @@
-package com.clp3z.marvelcompose.repositories.models
+package com.clp3z.marvelcompose.repository.models
 
 import com.clp3z.marvelcompose.R
 import com.clp3z.marvelcompose.network.models.ComicResponse
-import com.clp3z.marvelcompose.repositories.models.Comic.Format
+import com.clp3z.marvelcompose.repository.models.Comic.Format
 
 data class Comic(
     override val id: Int,
