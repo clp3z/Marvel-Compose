@@ -1,15 +1,19 @@
 package com.clp3z.marvelcompose.ui.screens.common
 
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import arrow.core.right
 import com.clp3z.marvelcompose.repository.models.MarvelItem
@@ -32,6 +36,18 @@ fun <T : MarvelItem> MarvelListScreen(
             var bottomSheetItem by remember { mutableStateOf<T?>(null) }
             val bottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
             val coroutineScope = rememberCoroutineScope()
+
+            val lifecycleOwner = LocalLifecycleOwner.current
+            val backDispatcher = requireNotNull(LocalOnBackPressedDispatcherOwner.current)
+                .onBackPressedDispatcher
+
+            LaunchedEffect(lifecycleOwner, backDispatcher) {
+                backDispatcher.addCallback(lifecycleOwner, object : OnBackPressedCallback(true) {
+                    override fun handleOnBackPressed() {
+                        coroutineScope.launch { bottomSheetState.hide() }
+                    }
+                })
+            }
 
             ModalBottomSheetLayout(
                 sheetState = bottomSheetState,
