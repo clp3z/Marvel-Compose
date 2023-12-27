@@ -19,7 +19,8 @@ import com.clp3z.marvelcompose.repository.models.MarvelItem
 fun <T : MarvelItem> MarvelList(
     isLoading: Boolean,
     items: List<T>,
-    onClick: (T) -> Unit,
+    onItemClick: (T) -> Unit,
+    onItemMoreClick: (T) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -37,7 +38,8 @@ fun <T : MarvelItem> MarvelList(
                 items(items) {
                     MarvelListItem(
                         marvelItem = it,
-                        modifier = modifier.clickable { onClick(it) }
+                        modifier = modifier.clickable { onItemClick(it) },
+                        onItemMoreClicked = onItemMoreClick
                     )
                 }
             }

@@ -12,7 +12,7 @@ abstract class Repository<T : MarvelItem> {
     internal suspend fun getItems(getRemoteItems: suspend () -> List<T>): Result<List<T>> =
         tryCall {
             if (cache.isEmpty()) {
-                withTimeout(5000) {
+                withTimeout(10000) {
                     cache = getRemoteItems()
                 }
             }
