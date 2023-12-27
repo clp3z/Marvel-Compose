@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import arrow.core.right
@@ -15,6 +16,7 @@ import com.clp3z.marvelcompose.repository.models.MarvelItem
 import com.clp3z.marvelcompose.repository.models.Result
 import com.clp3z.marvelcompose.ui.MarvelScreen
 import com.clp3z.marvelcompose.ui.models.characters
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -29,13 +31,18 @@ fun <T : MarvelItem> MarvelListScreen(
         ifRight = {
             var bottomSheetItem by remember { mutableStateOf<T?>(null) }
             val bottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+            val coroutineScope = rememberCoroutineScope()
 
             ModalBottomSheetLayout(
                 sheetState = bottomSheetState,
                 sheetContent = {
                     MarvelItemBottomSheet(
                         item = bottomSheetItem,
-                        onGoToDetailsClick = onClick
+                        onGoToDetailsClick = {
+                            bottomSheetItem = null
+                            coroutineScope.launch { bottomSheetState.hide() }
+                            onClick(it)
+                        }
                     )
                 }
             ) {
@@ -45,7 +52,7 @@ fun <T : MarvelItem> MarvelListScreen(
                     onItemClick = onClick,
                     onItemMoreClick = {
                         bottomSheetItem = it
-                        // TODO bottomSheetState.show()
+                        coroutineScope.launch { bottomSheetState.show() }
                     }
                 )
             }
