@@ -7,7 +7,7 @@ import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,12 +41,18 @@ fun <T : MarvelItem> MarvelListScreen(
             val backDispatcher = requireNotNull(LocalOnBackPressedDispatcherOwner.current)
                 .onBackPressedDispatcher
 
-            LaunchedEffect(lifecycleOwner, backDispatcher) {
-                backDispatcher.addCallback(lifecycleOwner, object : OnBackPressedCallback(true) {
+            val backCallback = remember {
+                object : OnBackPressedCallback(true) {
                     override fun handleOnBackPressed() {
                         coroutineScope.launch { bottomSheetState.hide() }
                     }
-                })
+                }
+            }
+
+            DisposableEffect(lifecycleOwner, backDispatcher) {
+                backDispatcher.addCallback(lifecycleOwner, backCallback)
+
+                onDispose { backCallback.remove() }
             }
 
             ModalBottomSheetLayout(
