@@ -8,6 +8,7 @@ import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,22 +38,8 @@ fun <T : MarvelItem> MarvelListScreen(
             val bottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
             val coroutineScope = rememberCoroutineScope()
 
-            val lifecycleOwner = LocalLifecycleOwner.current
-            val backDispatcher = requireNotNull(LocalOnBackPressedDispatcherOwner.current)
-                .onBackPressedDispatcher
-
-            val backCallback = remember {
-                object : OnBackPressedCallback(true) {
-                    override fun handleOnBackPressed() {
-                        coroutineScope.launch { bottomSheetState.hide() }
-                    }
-                }
-            }
-
-            DisposableEffect(lifecycleOwner, backDispatcher) {
-                backDispatcher.addCallback(lifecycleOwner, backCallback)
-
-                onDispose { backCallback.remove() }
+            BackPressedHandler(isEnabled = bottomSheetState.isVisible) {
+                coroutineScope.launch { bottomSheetState.hide() }
             }
 
             ModalBottomSheetLayout(
@@ -80,6 +67,31 @@ fun <T : MarvelItem> MarvelListScreen(
             }
         }
     )
+}
+
+@Composable
+fun BackPressedHandler(isEnabled: Boolean, onBackPressed: () -> Unit) {
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val backDispatcher = requireNotNull(LocalOnBackPressedDispatcherOwner.current)
+        .onBackPressedDispatcher
+
+    val backCallback = remember {
+        object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                onBackPressed()
+            }
+        }
+    }
+
+    DisposableEffect(lifecycleOwner, backDispatcher) {
+        backDispatcher.addCallback(lifecycleOwner, backCallback)
+
+        onDispose { backCallback.remove() }
+    }
+
+    SideEffect {
+        backCallback.isEnabled = isEnabled
+    }
 }
 
 @Preview(widthDp = 400, heightDp = 800)
