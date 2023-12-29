@@ -1,20 +1,16 @@
 package com.clp3z.marvelcompose.ui.screens.common
 
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
+import androidx.activity.compose.BackHandler
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import arrow.core.right
 import com.clp3z.marvelcompose.repository.models.MarvelItem
@@ -38,7 +34,7 @@ fun <T : MarvelItem> MarvelListScreen(
             val bottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
             val coroutineScope = rememberCoroutineScope()
 
-            BackPressedHandler(isEnabled = bottomSheetState.isVisible) {
+            BackHandler(enabled = bottomSheetState.isVisible) {
                 coroutineScope.launch { bottomSheetState.hide() }
             }
 
@@ -67,31 +63,6 @@ fun <T : MarvelItem> MarvelListScreen(
             }
         }
     )
-}
-
-@Composable
-fun BackPressedHandler(isEnabled: Boolean, onBackPressed: () -> Unit) {
-    val lifecycleOwner = LocalLifecycleOwner.current
-    val backDispatcher = requireNotNull(LocalOnBackPressedDispatcherOwner.current)
-        .onBackPressedDispatcher
-
-    val backCallback = remember {
-        object : OnBackPressedCallback(isEnabled) {
-            override fun handleOnBackPressed() {
-                onBackPressed()
-            }
-        }
-    }
-
-    DisposableEffect(lifecycleOwner, backDispatcher) {
-        backDispatcher.addCallback(lifecycleOwner, backCallback)
-
-        onDispose { backCallback.remove() }
-    }
-
-    SideEffect {
-        backCallback.isEnabled = isEnabled
-    }
 }
 
 @Preview(widthDp = 400, heightDp = 800)
