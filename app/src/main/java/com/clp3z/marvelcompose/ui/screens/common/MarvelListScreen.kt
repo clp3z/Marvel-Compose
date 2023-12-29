@@ -76,7 +76,7 @@ fun BackPressedHandler(isEnabled: Boolean, onBackPressed: () -> Unit) {
         .onBackPressedDispatcher
 
     val backCallback = remember {
-        object : OnBackPressedCallback(true) {
+        object : OnBackPressedCallback(isEnabled) {
             override fun handleOnBackPressed() {
                 onBackPressed()
             }
