@@ -7,6 +7,7 @@ import androidx.compose.material.BottomAppBar
 import androidx.compose.material.FabPosition
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -42,7 +43,10 @@ fun MarvelDetailScaffold(
     Scaffold(
         floatingActionButton = {
             if (marvelItem.urls.isNotEmpty()) {
-                FloatingActionButton(onClick = { shareMarvelItem(context, marvelItem) }) {
+                FloatingActionButton(
+                    onClick = { shareMarvelItem(context, marvelItem) },
+                    shape = MaterialTheme.shapes.small
+                ) {
                     Icon(
                         imageVector = Icons.Default.Share,
                         contentDescription = stringResource(R.string.share)
@@ -54,7 +58,7 @@ fun MarvelDetailScaffold(
         isFloatingActionButtonDocked = true,
         bottomBar = {
             BottomAppBar(
-                cutoutShape = CircleShape
+                cutoutShape = MaterialTheme.shapes.small
             ) {
                 AppBarAction(imageVector = Icons.Default.Menu, onClick = {})
                 Spacer(modifier = Modifier.weight(1f))
