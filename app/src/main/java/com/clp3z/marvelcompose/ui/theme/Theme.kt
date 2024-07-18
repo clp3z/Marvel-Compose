@@ -1,31 +1,26 @@
 package com.clp3z.marvelcompose.ui.theme
 
+import android.app.Activity
+import android.graphics.Color.toArgb
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-
+import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalView
 
 private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
+    primary = Marvel_Red,
+    primaryVariant = Marvel_Red_Dark,
+    secondary = Marvel_Blue
 )
 
 private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200
-
-    /* Other default colors to override
-        background = Color.White,
-        surface = Color.White,
-        onPrimary = Color.White,
-        onSecondary = Color.Black,
-        onBackground = Color.Black,
-        onSurface = Color.Black,
-    */
+    primary = Marvel_Red,
+    primaryVariant = Marvel_Red_Dark,
+    secondary = Marvel_Blue
 )
 
 @Composable
@@ -37,6 +32,14 @@ fun MarvelComposeTheme(
         DarkColorPalette
     } else {
         LightColorPalette
+    }
+
+    val view = LocalView.current
+    if (!view.isInEditMode) {
+        SideEffect {
+            val window = (view.context as Activity).window
+            window.statusBarColor = Marvel_Red_Dark.toArgb()
+        }
     }
 
     MaterialTheme(
